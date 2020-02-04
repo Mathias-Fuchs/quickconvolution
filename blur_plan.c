@@ -45,7 +45,7 @@ blur_in_place_plan *create_blur_plan_quadratic_2d(int sidelength, float bw)
 	k->bandwidth = bw;
 	k->data = FFTMALLOC(k->dataLength * sizeof(float));
 	k->frequencies = FFTMALLOC(sizeof(FFTCOMPLEX) * k->dataLength);
-	fftw_set_timelimit(1.5);
+	// fftw_set_timelimit(1.5);
 	k->planForward = FFTPLANR2C2D(sidelength, sidelength, k->data, k->frequencies, FFTW_PATIENT);
 	// fprintf(stdout, fftw_sprint_plan(k->planForward));
 	k->planBackward = FFTPLANC2R2D(sidelength, sidelength, k->frequencies, k->data, FFTW_PATIENT);

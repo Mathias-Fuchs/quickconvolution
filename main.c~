@@ -1,0 +1,124 @@
+#include <iostream>
+#include <vector>
+#include <glad/gl.h>
+#include <GLFW/glfw3.h>
+#include <math.h>
+
+#include <CGAL/boost/graph/helpers.h>
+#include <boost/graph/filtered_graph.hpp>
+#include <boost/graph/connected_components.hpp>
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include <CGAL/Polyhedron_3.h>
+#include <CGAL/Surface_mesh.h>
+#include <CGAL/convex_hull_3.h>
+#include <vector>
+#include <fstream>
+#include <CGAL/Homogeneous_converter.h>
+#include <iostream>
+#include <fstream>
+#include <CGAL/Cartesian_converter.h>
+
+#include "dualizer.h"
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "../stb/stb_image_write.h"
+
+#define GL_BGR 0x80E0
+
+
+typedef CGAL::Simple_cartesian<double>             Kernel;
+typedef CGAL::Polyhedron_3<Kernel>					Polyhedron;
+typedef Kernel::Point_3                            Point;
+typedef CGAL::Surface_mesh<Point>                  Mesh;
+typedef CGAL::Dual<Mesh>                           Dual;
+typedef boost::graph_traits<Dual>::edge_descriptor edge_descriptor;
+
+typedef CDualizer<Polyhedron, Kernel> Dualizer;
+
+
+typedef CGAL::Exact_predicates_inexact_constructions_kernel  KK;
+typedef CGAL::Polyhedron_3<KK>                     Polyhedron_3K;
+typedef KK::Point_3                                Point_3K;
+typedef CGAL::Surface_mesh<Point_3K>               Surface_meshK;
+
+
+
+typedef CGAL::Cartesian_converter<KK, Kernel> Converter;
+
+
+const GLuint WIDTH = 1200, HEIGHT = 800;
+
+
+int main()
+{
+
+	std::vector<Point_3K> points;
+
+	// the normals of the five faces of a pyramid on a square
+	double sqrt3 = sqrt(1.0 / 3.0);
+	points.push_back({ 0,0,-1 });
+	points.push_back({ sqrt3 * 1,sqrt3 * 1,sqrt3 * 1 });
+	points.push_back({ sqrt3 * 1,-sqrt3 * 1,sqrt3 * 1 });
+	points.push_back({ -sqrt3 * 1,sqrt3 * 1,sqrt3 * 1 });
+	points.push_back({ -sqrt3 * 1,-sqrt3 * 1,sqrt3 * 1 });
+
+	CGAL::Object obj;
+	CGAL::convex_hull_3(points.begin(), points.end(), obj);
+
+	const Polyhedron_3K* poly = CGAL::object_cast<Polyhedron_3K>(&obj);
+
+	std::cout << "The convex hull contains " << poly->size_of_vertices() << " vertices" << std::endl;
+
+	Polyhedron mmp;
+	Polyhedron dual;
+	CGAL::copy_face_graph(*poly, mmp);
+	// Dualizer dualizer;
+	// dualizer.run(mmp, dual);
+
+//	return 0;
+
+
+
+	glfwInit();
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "[glad] GL with GLFW", NULL, NULL);
+	glfwMakeContextCurrent(window);
+
+	int version = gladLoadGL(glfwGetProcAddress);
+	printf("GL %d.%d\n", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
+	std::vector<double> vertices;
+	for (auto v = mmp.vertices_begin(); v != mmp.vertices_end(); v++) {
+		vertices.push_back(v->point().x());
+		vertices.push_back(v->point().y());
+		vertices.push_back(v->point().z());
+	}
+	for (auto f = mmp.facets_begin(); f != mmp.facets_end(); f++) {
+		auto fb = f->facet_begin();
+		auto fbi = fb;
+		while (++fbi != fb) {
+			fbi->face()->halfedge()->vertex()
+		}
+	}
+
+	while (!glfwWindowShouldClose(window)) {
+		glfwPollEvents();
+
+		glClearColor(0.7f, 0.9f, 0.1f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glfwSwapBuffers(window);
+
+
+
+	}
+	glfwTerminate();
+	exit(EXIT_SUCCESS);
+
+	return 0;
+
+}
+
+
