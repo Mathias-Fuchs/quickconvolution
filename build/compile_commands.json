@@ -1,0 +1,42 @@
+[
+{
+  "directory": "/home/mathias/quickconvolution/build",
+  "command": "/usr/bin/cc   -g   -o CMakeFiles/quickconv.dir/main.c.o   -c /home/mathias/quickconvolution/main.c",
+  "file": "/home/mathias/quickconvolution/main.c"
+},
+{
+  "directory": "/home/mathias/quickconvolution/build",
+  "command": "/usr/bin/cc   -g   -o CMakeFiles/quickconv.dir/Timeline.c.o   -c /home/mathias/quickconvolution/Timeline.c",
+  "file": "/home/mathias/quickconvolution/Timeline.c"
+},
+{
+  "directory": "/home/mathias/quickconvolution/build",
+  "command": "/usr/bin/cc   -g   -o CMakeFiles/quickconv.dir/box.c.o   -c /home/mathias/quickconvolution/box.c",
+  "file": "/home/mathias/quickconvolution/box.c"
+},
+{
+  "directory": "/home/mathias/quickconvolution/build",
+  "command": "/usr/bin/cc   -g   -o CMakeFiles/quickconv.dir/readnumerictable.c.o   -c /home/mathias/quickconvolution/readnumerictable.c",
+  "file": "/home/mathias/quickconvolution/readnumerictable.c"
+},
+{
+  "directory": "/home/mathias/quickconvolution/build",
+  "command": "/usr/bin/cc   -g   -o CMakeFiles/quickconv.dir/blur_plan.c.o   -c /home/mathias/quickconvolution/blur_plan.c",
+  "file": "/home/mathias/quickconvolution/blur_plan.c"
+},
+{
+  "directory": "/home/mathias/quickconvolution/build",
+  "command": "/usr/bin/cc   -g   -o CMakeFiles/quickconv.dir/staticHelpers.c.o   -c /home/mathias/quickconvolution/staticHelpers.c",
+  "file": "/home/mathias/quickconvolution/staticHelpers.c"
+},
+{
+  "directory": "/home/mathias/quickconvolution/build",
+  "command": "/usr/bin/cc   -g   -o CMakeFiles/blurimage.dir/blurimage.c.o   -c /home/mathias/quickconvolution/blurimage.c",
+  "file": "/home/mathias/quickconvolution/blurimage.c"
+},
+{
+  "directory": "/home/mathias/quickconvolution/build",
+  "command": "/usr/bin/cc   -g   -o CMakeFiles/blurimage.dir/blur_plan.c.o   -c /home/mathias/quickconvolution/blur_plan.c",
+  "file": "/home/mathias/quickconvolution/blur_plan.c"
+}
+]

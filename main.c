@@ -14,7 +14,7 @@
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb/stb_image_write.h"
-
+#define SAVE
 int main()
 {
 	int n = 512;
@@ -22,7 +22,6 @@ int main()
 	box* b = box_create(0, 100, 0, 100, 0, 0);
 	Timeline* tl = TimelineCreateFromFile("forConv.db", n, b);
 	float* tlb = TimelineBlur(tl, n, nrFrames, 0.021, 0.12, 0);
-	int* trianglestrip = triangle(n);
 	char filename[200];
 	unsigned char* buf = malloc(3 * n * n * sizeof(unsigned char));
 
@@ -42,9 +41,9 @@ int main()
 
 				float cutoff = v * 10.0 - (int)(v * 10.0);
 
-				float valred = cutoff * cutoff * cutoff * red * 255.0f;
-				float valgreen = cutoff * cutoff * green * 255.0f;
-				float valblue = cutoff * blue * 255.0f;
+				float valred = sqrt(sqrt(cutoff * cutoff * cutoff * red)) * 255.0f;
+				float valgreen = sqrt(sqrt(cutoff * cutoff * green)) * 255.0f;
+				float valblue = sqrt(sqrt(cutoff * blue)) * 255.0f;
 			
 
 				if (valred > 255.0f) valred = 255.0f;

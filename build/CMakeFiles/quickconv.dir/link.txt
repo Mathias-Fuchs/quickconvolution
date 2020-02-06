@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/quickconv.dir/main.c.o CMakeFiles/quickconv.dir/Timeline.c.o CMakeFiles/quickconv.dir/box.c.o CMakeFiles/quickconv.dir/readnumerictable.c.o CMakeFiles/quickconv.dir/blur_plan.c.o CMakeFiles/quickconv.dir/staticHelpers.c.o  -o quickconv -lfftw3f -lsqlite3 
