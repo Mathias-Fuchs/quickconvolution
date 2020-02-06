@@ -17,6 +17,7 @@ typedef struct {
 } Timeline;
 
 Timeline* TimelineCreateFromFile(char * filename, int n, box* b);
+Timeline* TimelineCreateFromArray(int* array, int n, int nrFrames, box* b);
 Timeline* TimelineCreateFromCumulativePositions(char * filename, char* tablename, int nColumns, int n, box* b);
 Timeline* TimelineCreateFromWhenIJVal(box* b, char* filename, char* tablename, int n);
 int TimelineIndex(Timeline* tl, int f, int nrTextureFrames);

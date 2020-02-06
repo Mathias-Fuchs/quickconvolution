@@ -39,11 +39,13 @@ int main()
 				float green = (sinf(v * v) * cosf(v * v));
 				float blue = v;
 
+				float cutoff = v * 10.0 - (int)(v * 10.0);
 
-				float valred =  red * 255.0f;
-				float valgreen = green * 255.0f;
-				float valblue = blue * 255.0f;
-				
+				float valred = cutoff * cutoff * cutoff * red * 255.0f;
+				float valgreen = cutoff * cutoff * green * 255.0f;
+				float valblue = cutoff * blue * 255.0f;
+			
+
 				if (valred > 255.0f) valred = 255.0f;
 				if (valgreen > 255.0f) valgreen = 255.0f;
 				if (valblue > 255.0f) valblue = 255.0f;

@@ -221,6 +221,32 @@ Timeline* TimelineCreateFromFile(char* filename, int n, box* b) {
 	return self;
 }
 
+// array: an array of ints, containing the timeline in a flat format. Each entry represents the number of counts of particles in that bin at that timepoint.
+// n: the sidelength of the data grid.
+// nrFrames: the number of frames, or number of timepoints.
+// so, the total length of the array has to be n*n*nrFrames
+// b: pointer to the box describing the bounding box of the data.
+Timeline* TimelineCreateFromArray(int* array, int n, int nrFrames, box* b) {
+	Timeline* self = malloc(sizeof(Timeline));
+	int ndistinct = nrFrames;
+	// now we know how many timepoints there are in the data;
+	TimeHeatmapObservation** thos = malloc(ndistinct * sizeof(TimeHeatmapObservation*));
+	for (int h = 0; h < ndistinct; h++) {
+		TimeHeatmapObservation* tho = malloc(sizeof(TimeHeatmapObservation));
+		tho->nx = n;
+		tho->ny = n;
+		tho->data = calloc(n*n, sizeof(int));
+		// the h-th timepoint starts at memory location array + h * n * n, and occupies n * n * sizeof(int) bytes.
+		// we can copy them linearly over.
+		memcpy(tho->data, array + h * n * n, n * n * sizeof(int));
+		thos[h] = tho;
+	}
+	self->nrObservations = ndistinct;
+	self->heatmaps = thos;
+	return self;
+}
+
+
 int TimelineIndex(Timeline* tl, int f, int nrTextureFrames) {
 	// as we go through all texture frames, we walk through all available observations
 	int p = (int)(((float)f / (float)nrTextureFrames) * (float)(tl->nrObservations));
