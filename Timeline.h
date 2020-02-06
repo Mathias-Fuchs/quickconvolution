@@ -24,3 +24,4 @@ int TimelineIndex(Timeline* tl, int f, int nrTextureFrames);
 float* TimelineBlur(Timeline* tl, int n, int nrTextureFrames, float bw2d, float bw1d, int cumulative);
 void TimelineWriteToFile(char* filename, float* data3d, int n, int nrTextureFrames);
 float* TimelineReadFromFile(char* filename, int n, int* nrTextureFrames);
+void TimelineFree(Timeline* tl, int nrFrames);

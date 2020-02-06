@@ -14,23 +14,24 @@
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb/stb_image_write.h"
-#define SAVE
+
 int main()
 {
 	int n = 512;
+	int nrFrames = 628;
 	box* b = box_create(0, 100, 0, 100, 0, 0);
 	Timeline* tl = TimelineCreateFromFile("forConv.db", n, b);
-	float* tlb = TimelineBlur(tl, n, 628, 0.021, 0.12, 0);
+	float* tlb = TimelineBlur(tl, n, nrFrames, 0.021, 0.12, 0);
 	int* trianglestrip = triangle(n);
 	char filename[200];
 	unsigned char* buf = malloc(3 * n * n * sizeof(unsigned char));
 
 	float max = 0;
-	for (int i = 0; i < n * n * 628; i++) if (tlb[i] > max) max = tlb[i];
+	for (int i = 0; i < n * n * nrFrames; i++) if (tlb[i] > max) max = tlb[i];
 	float min = 1e9;
-	for (int i = 0; i < n * n * 628; i++) if (tlb[i] < min) min = tlb[i];
+	for (int i = 0; i < n * n * nrFrames; i++) if (tlb[i] < min) min = tlb[i];
 
-	for (int framecounter = 0; framecounter < 628; framecounter++) {
+	for (int framecounter = 0; framecounter < nrFrames; framecounter++) {
 		double sum = 0;
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
@@ -63,6 +64,7 @@ int main()
 #endif
 	}
 	free(buf);
+	TimelineFree(tl, nrFrames);
 	return 0;
 
 }

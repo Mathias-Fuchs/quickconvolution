@@ -246,6 +246,12 @@ Timeline* TimelineCreateFromArray(int* array, int n, int nrFrames) {
 	return self;
 }
 
+void TimelineFree(Timeline* tl, int nrFrames) {
+	for (int h = 0; h < nrFrames; h++)
+		free(tl->heatmaps[h]->data);
+	free(tl->heatmaps);
+	free(tl);
+}
 
 int TimelineIndex(Timeline* tl, int f, int nrTextureFrames) {
 	// as we go through all texture frames, we walk through all available observations
