@@ -226,7 +226,7 @@ Timeline* TimelineCreateFromFile(char* filename, int n, box* b) {
 // nrFrames: the number of frames, or number of timepoints.
 // so, the total length of the array has to be n*n*nrFrames
 // b: pointer to the box describing the bounding box of the data.
-Timeline* TimelineCreateFromArray(int* array, int n, int nrFrames, box* b) {
+Timeline* TimelineCreateFromArray(int* array, int n, int nrFrames) {
 	Timeline* self = malloc(sizeof(Timeline));
 	int ndistinct = nrFrames;
 	// now we know how many timepoints there are in the data;
