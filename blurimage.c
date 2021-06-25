@@ -35,7 +35,7 @@ int main(int argc, char **argv)
                 continue;
             pixsq[i + sl * j] = pix[i + width * j];
         }
-
+    stbi_image_free(pix);
     blur_in_place_plan *bipp = create_blur_plan_quadratic_2d(sl, 0.008);
     float *bpd = blur_plan_data(bipp);
 
@@ -49,11 +49,11 @@ int main(int argc, char **argv)
             if (bright > 0.5)
                 countbright++;
         }
-
+    free(pixsq);
     float percbright = (float)countbright / width / height * 100.0;
 
     fprintf(stdout, "%i bright out of %i, Percentage = %.2f%%\n", countbright, width * height, percbright);
-    stbi_image_free(pix);
+
 
     blur_plan_execute(bipp);
     unsigned char *res = malloc(sl * sl);
