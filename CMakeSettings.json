@@ -8,15 +8,14 @@
       "buildRoot": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\build\\${name}",
       "installRoot": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\install\\${name}",
       "cmakeCommandArgs": "",
-      "buildCommandArgs": "-v",
-      "ctestCommandArgs": "",
-      "variables": [
-        {
-          "name": "CMAKE_TOOLCHAIN_FILE",
-          "value": "${env.USERPROFILE}\\source\\repos\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake",
-          "type": "STRING"
-        }
-      ]
+      "buildCommandArgs": "-v"
+        //"variables": [
+      //  {
+      //    "name": "CMAKE_TOOLCHAIN_FILE",
+      //    "value": "",
+      //    "type": "STRING"
+      //  }
+      //]
     },
     {
       "name": "x64-Release",
@@ -27,14 +26,14 @@
       "installRoot": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\install\\${name}",
       "cmakeCommandArgs": "",
       "buildCommandArgs": "-v",
-      "ctestCommandArgs": "",
-      "variables": [
-        {
-          "name": "CMAKE_TOOLCHAIN_FILE",
-          "value": "${env.USERPROFILE}\\source\\repos\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake",
-          "type": "STRING"
-        }
-      ]
+      "ctestCommandArgs": ""
+      //"variables": [
+      //  {
+      //    "name": "CMAKE_TOOLCHAIN_FILE",
+      //    "value": "${env.USERPROFILE}\\source\\repos\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake",
+      //    "type": "STRING"
+      //  }
+      //]
     }
   ]
 }

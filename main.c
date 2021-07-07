@@ -11,17 +11,72 @@
 #include "readnumerictable.h"
 #include <stdbool.h>
 
-
+#define STBI_ONLY_PNG
+#define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb/stb_image.h"
 #include "stb/stb_image_write.h"
 #define SAVE
+
+
+
+
+
+
+typedef struct lookup {
+	const char* name;
+	const char* filename;
+	int width;
+	int height;
+	int comp;
+	unsigned char* pixels;
+} lookup_t;
+
+
 int main()
 {
+
+
+	char* array[] = {
+	//"Turbo.png",
+	//"Cividis.png",
+	//  "Hot.png",
+//			"Parula.png",
+			// "gradientStrong.png",
+			// "inferno.png",
+			// "magma.png",
+			// "plasma.png",
+					"viridis.png"
+	//				"gradient.png",
+					// "burger-king-hex-colors-gradient-background.png",
+	//						"sonnenuntergang.png",
+							// "google-hex-colors-gradient-background.png"
+	};
+	int nfiles = sizeof array / sizeof(char*);
+	lookup_t* viridis = malloc(nfiles * sizeof(lookup_t));
+
+	for (int kk = 0; kk < nfiles; kk++) {
+		viridis[kk].name = array[kk];
+		viridis[kk].filename = array[kk];
+		char fn[1000];
+		strcpy(fn, "");
+		strcat(fn, "/home/mathias/Desktop/");
+		strcat(fn, viridis[kk].filename);
+		fprintf(stdout, "reading lookup image %s .... \n", fn);
+		FILE* t = fopen(fn, "r");
+		if (!t) { fprintf(stderr, "could not find %s - aborting \n", fn); exit(1); }
+		else fclose(t);
+		viridis[kk].pixels = stbi_load(fn, &viridis[kk].width, &viridis[kk].height, &viridis[kk].comp, 4);
+	}
+
+
+
+
 	int n = 512;
 	int nrFrames = 628;
-	box* b = box_create(0, 100, 0, 100, 0, 0);
+	box* b = box_create(0, 33, 0, 23, 0, 0);
 	Timeline* tl = TimelineCreateFromFile("forConv.db", n, b);
-	float* tlb = TimelineBlur(tl, n, nrFrames, 0.021, 0.12, 0);
+	float* tlb = TimelineBlur(tl, n, nrFrames, 0.1, 0.2, 0);
 	char filename[200];
 	unsigned char* buf = malloc(3 * n * n * sizeof(unsigned char));
 
@@ -61,6 +116,7 @@ int main()
 			fprintf(stdout, "error in stb");
 		}
 #endif
+
 	}
 	free(buf);
 	TimelineFree(tl, nrFrames);

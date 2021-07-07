@@ -181,6 +181,17 @@ Timeline* TimelineCreateFromFile(char* filename, int n, box* b) {
 		sqlite3_free(zErrMsg);
 	}
 
+
+	strcpy(m, "select max(t) from main;");
+	int tmax;
+	rc = sqlite3_exec(db, m, callback1, &tmax, &zErrMsg);
+	if (rc != SQLITE_OK) {
+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		sqlite3_free(zErrMsg);
+	}
+
+
+
 	// now we know how many timepoints there are in the data;
 	TimeHeatmapObservation** thos = malloc(ndistinct * sizeof(TimeHeatmapObservation*));
 	for (int h = 0; h < ndistinct; h++) {
@@ -208,9 +219,9 @@ Timeline* TimelineCreateFromFile(char* filename, int n, box* b) {
 		float t = (float)sqlite3_column_double(stmt, 2);
 		int i, j;
 		box_world_texture(b, n, x, y, &i, &j);
-
-		thos[(int)t]->data[j + n * i] += 1;
-		thos[(int)t]->time = (int)t;
+		int tresc = (int)((double)t / (double)tmax * (double)(ndistinct - 1));
+		thos[tresc]->data[j + n * i] += 1;
+		thos[tresc]->time = tresc;
 	}
 	sqlite3_finalize(stmt);
 

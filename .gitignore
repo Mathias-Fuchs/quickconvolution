@@ -57,3 +57,4 @@ dkms.conf
 /.vs
 /buildWSL
 /quarry.c
+/build
