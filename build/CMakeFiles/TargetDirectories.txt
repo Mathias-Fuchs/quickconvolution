@@ -1,4 +1,0 @@
-/home/mathias/quickconvolution/build/CMakeFiles/rebuild_cache.dir
-/home/mathias/quickconvolution/build/CMakeFiles/edit_cache.dir
-/home/mathias/quickconvolution/build/CMakeFiles/quickconv.dir
-/home/mathias/quickconvolution/build/CMakeFiles/blurimage.dir

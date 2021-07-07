@@ -1,1 +1,0 @@
-/usr/bin/cc -g  -rdynamic CMakeFiles/blurimage.dir/blurimage.c.o CMakeFiles/blurimage.dir/blur_plan.c.o  -o blurimage -lfftw3f -lm 
