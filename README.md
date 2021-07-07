@@ -2,9 +2,10 @@
 ![Blurring and thresholding for image processing](hania.gif)
 
 # Quickconvolution
-This is a single file C library for image blurring using convolution with a Gaussian kernel, implemented 
+This is a single file C library called blur_plan.h for image blurring using convolution with a Gaussian kernel, implemented 
 The complexity is that of the Fast Fourier transform, namely O(n log n) where n is the number of pixels of the image.
-This is fast enough to run in real-time.
+This is almost the same complexity as that of a single pass over the file.
+The naive implementation of a Gaussian stencil convolution is O(n^2).
 
 # Usage
 As usual with single file header libraries, include the header file blur_plan.h wherever you want to use the declaration of the API functions. Once and only once the symbol
