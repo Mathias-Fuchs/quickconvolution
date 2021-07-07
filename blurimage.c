@@ -8,15 +8,14 @@
 #include "stb/stb_image.h"
 #include "stb/stb_image_write.h"
 #include <math.h>
+
+#define BLUR_PLAN_IMPLEMENTATION
 #include "blur_plan.h"
 
 int main(int argc, char** argv)
 {
-	/*    if (argc < 2) return 1;
-	const char *filename = argv[1];
-	*/
 	const char* filename = "hania.png";
-	FILE* f = fopen("hania.png", "r");
+	FILE* f = fopen(filename, "r");
 	if (f == NULL) {
 		fprintf(stderr, "Can't find input file %s. Aborting.\n", filename);
 		return 1;
@@ -60,6 +59,10 @@ int main(int argc, char** argv)
 
 	blur_plan_execute(bipp);
 	unsigned char* res = malloc(sl * sl);
+	if (res == NULL) {
+		fprintf(stderr, "Ran out of memory.");
+		exit(1);
+	}
 	for (int k = 0; k < 90; k++)
 	{
 		double angle = (double)k / 90 * 2 * M_PI;

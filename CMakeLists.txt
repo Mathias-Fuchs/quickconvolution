@@ -22,7 +22,7 @@ endif()
 
 
 add_executable(blurimage
-	blur_plan.c
+	
 	blurimage.c
 	)
 
@@ -32,7 +32,6 @@ add_executable(quickconv
 	Timeline.c
 	box.c
 	readnumerictable.c
-	blur_plan.c
 	staticHelpers.c
 )
 
