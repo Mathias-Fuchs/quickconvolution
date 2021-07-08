@@ -2,31 +2,32 @@
 ![Blurring and thresholding for image processing](hania.gif)
 
 # Quickconvolution
-This is a single file C library called blur_plan.h for image blurring using convolution with a Gaussian kernel, implemented 
+This is a single file C library called blur_plan.h for image blurring using convolution with a Gaussian kernel. It is easy to adapt to other kernels. 
 The complexity is that of the Fast Fourier transform, namely O(n log n) where n is the number of pixels of the image.
 This is almost the same complexity as that of a single pass over the file.
-The naive implementation of a Gaussian stencil convolution is O(n^2).
+In constrast, the naive implementation of a Gaussian stencil convolution is O(n^2), which corresponds to n passes over the file.
 
 # Usage
 ```C
-#include "blur_plan.h"
 #define BLUR_PLAN_IMPLEMENTATION
+#include "blur_plan.h"
 
-// prepare for blurring images of size 128 x 128 with a stencil size of 5%, takes a little time to warm up
+// prepare for blurring images of size 128 x 128
+// with a stencil size of 5%, takes a little time to warm up
 blur_in_place_plan* bipp = create_blur_plan_quadratic_2d(128, 0.05);
 
-// get the raw pointer to the image date
+// get the raw pointer to the image data
 float* bpd = blur_plan_data(bipp);
 
 while (true) {
 // this loop is extremely fast and can be a hot path
 // .... fill the image
-	bpd[0] = somepixelvalue;
+    bpd[0] = somepixelvalue;
     bpd[1] = anotherpixelvalue;
 // ...
 
 // do the blurring
-	blur_plan_execute(bipp);
+    blur_plan_execute(bipp);
 
 // do something with the blurred image
     float firstpixel = bpd[0];
@@ -38,7 +39,7 @@ free_blur_plan(bipp);
 ```
 
 As usual with single file header libraries, include the header file blur_plan.h wherever you want to use the declaration of the API functions. Once and only once the symbol
-```
+```C
 #define BLUR_PLAN_IMPLEMENTATION
 ```
 needs to be defined in a compilation unit that will provide the definition of the API functions.
@@ -54,7 +55,7 @@ This repository contains a simple example in the file blurimage.c. It produces i
 
 # Building the example blurimage executable with gcc on  linux
 ```
-gcc blurimage.c -lfftw3 -Ofast -o blurimage
+gcc blurimage.c -lfftw3f -lm -Ofast -o blurimage
 ```
 
 # Building the example with CMake on Windows
