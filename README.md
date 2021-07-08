@@ -8,6 +8,35 @@ This is almost the same complexity as that of a single pass over the file.
 The naive implementation of a Gaussian stencil convolution is O(n^2).
 
 # Usage
+```C
+#include "blur_plan.h"
+#define BLUR_PLAN_IMPLEMENTATION
+
+// prepare for blurring images of size 128 x 128 with a stencil size of 5%, takes a little time to warm up
+blur_in_place_plan* bipp = create_blur_plan_quadratic_2d(128, 0.05);
+
+// get the raw pointer to the image date
+float* bpd = blur_plan_data(bipp);
+
+while (true) {
+// this loop is extremely fast and can be a hot path
+// .... fill the image
+	bpd[0] = somepixelvalue;
+    bpd[1] = anotherpixelvalue;
+// ...
+
+// do the blurring
+	blur_plan_execute(bipp);
+
+// do something with the blurred image
+    float firstpixel = bpd[0];
+// ...
+}
+
+// free the memory
+free_blur_plan(bipp);
+```
+
 As usual with single file header libraries, include the header file blur_plan.h wherever you want to use the declaration of the API functions. Once and only once the symbol
 ```
 #define BLUR_PLAN_IMPLEMENTATION
